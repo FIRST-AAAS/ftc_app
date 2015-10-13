@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
 
-public class DemoBotOpMode1 extends LinearOpMode {
+public class DemoBotOpMode1 extends AAASOpMode {
 
   // position of the servo
   private double servo1Position;
@@ -17,11 +17,14 @@ public class DemoBotOpMode1 extends LinearOpMode {
 
   private DemoBot demoBot;
 
-  private void preStart() {
-    //specify configuration name save from scan operation
-    demoBot = DemoBot.newConfig(hardwareMap, telemetry);
+  @Override
+  protected void onInit() {
 
-    telemetry.addData("Init", "DemoBotOpMode1 initialized.");
+    //specify configuration name save from scan operation
+    demoBot = DemoBot.newConfig(hardwareMap, getTelemetryUtil());
+
+    getTelemetryUtil().addData("Init", getClass().getSimpleName() + " initialized.");
+    getTelemetryUtil().sendTelemetry();
 
     // set the starting position of the servo
     servo1Position = 0.5;
@@ -36,9 +39,10 @@ public class DemoBotOpMode1 extends LinearOpMode {
   @Override
   public void runOpMode() throws InterruptedException {
 
-    this.preStart();
+    this.onInit();
 
     waitForStart();
+    getTelemetryUtil().reset();
 
     while (opModeIsActive()) {
       // throttle:  left_stick_y ranges from -1 to 1, where -1 is full up,  and 1 is full down
@@ -76,11 +80,14 @@ public class DemoBotOpMode1 extends LinearOpMode {
       // write position values to the wrist and neck servo
       demoBot.getServo1().setPosition(servo1Position);
 
-      demoBot.sendTelemetry();
+      getTelemetryUtil().addData("ods  ld", demoBot.getOds1().getLightDetected());
+      getTelemetryUtil().addData("servo position", demoBot.getServo1().getPosition());
+      getTelemetryUtil().sendTelemetry();
 
       waitOneFullHardwareCycle();
     }
   }
+
 
 
 }

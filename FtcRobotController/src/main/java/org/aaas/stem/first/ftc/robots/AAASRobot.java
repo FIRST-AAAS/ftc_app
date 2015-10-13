@@ -3,9 +3,8 @@ package org.aaas.stem.first.ftc.robots;
 import com.qualcomm.ftccommon.DbgLog;
 import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.robocol.Telemetry;
 
-import java.util.Map;
+import org.aaas.stem.first.ftc.utils.TelemetryUtil;
 
 
 /**
@@ -14,16 +13,16 @@ import java.util.Map;
 public abstract class AAASRobot {
 
 
-    private Telemetry telemetry;
+    private TelemetryUtil telemetryUtil;
 
-    abstract protected void init(HardwareMap hardwareMap, Telemetry telemetry);
+    abstract protected void init(HardwareMap hardwareMap, TelemetryUtil telemetryUtil);
 
-    protected Telemetry getTelemetry() {
-        return telemetry;
+    protected TelemetryUtil getTelemetryUtil() {
+        return telemetryUtil;
     }
 
-    protected void setTelemetry(Telemetry telemetry) {
-        this.telemetry = telemetry;
+    protected void setTelemetry(TelemetryUtil telemetryUtil) {
+        this.telemetryUtil = telemetryUtil;
     }
 
     protected  HardwareDevice getHardwareOn(String name, Object o) {
@@ -35,8 +34,8 @@ public abstract class AAASRobot {
         }
         catch (Exception e)
         {
-            getTelemetry().addData("Exception", e.getClass());
-            getTelemetry().addData("Message", e.getLocalizedMessage());
+            getTelemetryUtil().addData("Exception", e.getClass().getSimpleName());
+            getTelemetryUtil().addData("Message", e.getLocalizedMessage());
             DbgLog.msg(e.getLocalizedMessage());
 
         }

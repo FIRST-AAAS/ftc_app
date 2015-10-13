@@ -1,21 +1,20 @@
 package org.aaas.stem.first.ftc.robots;
 
 import com.qualcomm.ftcrobotcontroller.R;
-import com.qualcomm.ftcrobotcontroller.opmodes.ColorSensorDriver;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
-import com.qualcomm.robotcore.robocol.Telemetry;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.view.View;
 
+import org.aaas.stem.first.ftc.utils.TelemetryUtil;
+
 /**
- *
+ * DemoBot Saved Configuration
  */
 public class DemoBot extends AAASRobot {
 
@@ -31,18 +30,18 @@ public class DemoBot extends AAASRobot {
 
     private View relativeLayout;
 
-    public static DemoBot newConfig(HardwareMap hardwareMap, Telemetry telemetry) {
+    public static DemoBot newConfig(HardwareMap hardwareMap, TelemetryUtil telemetryUtil) {
 
         DemoBot config =  new DemoBot();
-        config.init(hardwareMap,telemetry);
+        config.init(hardwareMap,telemetryUtil);
         return config;
 
     }
 
     @Override
-    protected void init(HardwareMap hardwareMap, Telemetry telemetry) {
+    protected void init(HardwareMap hardwareMap, TelemetryUtil telemetryUtil) {
 
-        setTelemetry(telemetry);
+        setTelemetry(telemetryUtil);
 
         ods1 = (OpticalDistanceSensor) getHardwareOn("ods1", hardwareMap.opticalDistanceSensor);
         touch1 = (TouchSensor) getHardwareOn("touch1",  hardwareMap.touchSensor);
@@ -85,36 +84,36 @@ public class DemoBot extends AAASRobot {
         return motor2;
     }
 
-    public void sendTelemetry() {
-        getTelemetry().addData("OpMode", "DemoBotOpMode1");
-        getTelemetry().addData("servo1",  getServo1().getPosition());
-        getTelemetry().addData("ods  ld", getOds1().getLightDetected());
-        getTelemetry().addData("ods  ld raw", getOds1().getLightDetectedRaw());
+    private void sendTelemetry() {
 
-        ColorSensor cs = getMrColor1();
+      //  getTelemetryUtil().addData("servo1",  getServo1().getPosition());
+       // getTelemetryUtil().addData("ods  ld", getOds1().getLightDetected());
+
+
+      /*  ColorSensor cs = getMrColor1();
         // hsvValues is an array that will hold the hue, saturation, and value information.
         float hsvValues[] = {0F,0F,0F};
         // values is a reference to the hsvValues array.
         final float values[] = hsvValues;
 
         Color.RGBToHSV(cs.red() * 8, cs.green() * 8, cs.blue() * 8, hsvValues);
-
+        */
         // send the info back to driver station using telemetry function.
-        getTelemetry().addData("Clear", cs.alpha());
-        getTelemetry().addData("Red  ", cs.red());
-        getTelemetry().addData("Green", cs.green());
-        getTelemetry().addData("Blue ", cs.blue());
-        getTelemetry().addData("Hue", hsvValues[0]);
+      //  getTelemetryUtil().addData("Clear", cs.alpha());
+      //  getTelemetryUtil().addData("Red  ", cs.red());
+      //  getTelemetryUtil().addData("Green", cs.green());
+      //  getTelemetryUtil().addData("Blue ", cs.blue());
+      //  getTelemetryUtil().addData("Hue", hsvValues[0]);
 
         // change the background color to match the color detected by the RGB sensor.
         // pass a reference to the hue, saturation, and value array as an argument
         // to the HSVToColor method.
-        relativeLayout.post(new Runnable() {
+      /*  relativeLayout.post(new Runnable() {
             public void run() {
                 relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
             }
         });
-
+    */
 
     }
 }

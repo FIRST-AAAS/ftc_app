@@ -59,6 +59,10 @@ public class AAASOpModeRegister implements OpModeRegister {
     manager.register("NullOp", NullOp.class);
 
     manager.register("DemoBotOpMode1", DemoBotOpMode1.class);
+    manager.register("DemoBotTeleOp", DemoBotTeleOp.class);
+    manager.register("DemoBotAutoMode1", DemoBotAutoMode1.class);
+    manager.register("DemoBotAutoMode2", DemoBotAutoMode2.class);
+
 
     /*
      * Uncomment any of the following lines if you want to register an op mode.
