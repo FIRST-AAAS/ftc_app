@@ -1,4 +1,4 @@
-package org.aaas.stem.first.ftc.tasks_tele;
+package org.aaas.stem.first.ftc.tasksTele;
 
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -38,7 +38,7 @@ public class ServoDrive {
         boolean leftVal =   upDown ?  gamepad.a : gamepad.x;
 
         opMode.getTelemetryUtil().addData("rightVal", rightVal);
-        opMode.getTelemetryUtil().addData( "leftVal" , leftVal);
+        opMode.getTelemetryUtil().addData("leftVal", leftVal);
 
         // update the position of the servo
         if (rightVal) {

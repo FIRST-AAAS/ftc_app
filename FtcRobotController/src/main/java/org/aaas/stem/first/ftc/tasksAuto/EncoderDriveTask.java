@@ -1,9 +1,6 @@
-package org.aaas.stem.first.ftc.tasks_auto;
+package org.aaas.stem.first.ftc.tasksAuto;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorController;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.util.Range;
 
 import org.aaas.stem.first.ftc.opmodes.AAASOpMode;
 

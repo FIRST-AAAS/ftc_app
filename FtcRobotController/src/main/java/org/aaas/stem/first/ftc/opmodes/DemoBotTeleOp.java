@@ -1,11 +1,8 @@
 package org.aaas.stem.first.ftc.opmodes;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-
 import org.aaas.stem.first.ftc.robots.DemoBot;
-import org.aaas.stem.first.ftc.tasks_tele.TankDrive;
-import org.aaas.stem.first.ftc.tasks_tele.ServoDrive;
+import org.aaas.stem.first.ftc.tasksTele.TankDrive;
+import org.aaas.stem.first.ftc.tasksTele.ServoDrive;
 
 
 public class DemoBotTeleOp extends AAASOpMode {

@@ -1,8 +1,7 @@
 package org.aaas.stem.first.ftc.opmodes;
 
 import org.aaas.stem.first.ftc.robots.DemoBot;
-import org.aaas.stem.first.ftc.tasks_auto.EncoderDriveTask;
-import org.aaas.stem.first.ftc.tasks_auto.EncoderMotorTask;
+import org.aaas.stem.first.ftc.tasksAuto.EncoderDriveTask;
 
 
 public class DemoBotAutoMode2 extends AAASOpMode {

@@ -1,4 +1,4 @@
-package org.aaas.stem.first.ftc.tasks_tele;
+package org.aaas.stem.first.ftc.tasksTele;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -44,7 +44,7 @@ public class TankDrive {
     {
        if (this.leftMotor != null)
         {
-            opMode.getTelemetryUtil().addData( "setting left power" , leftPower);
+            opMode.getTelemetryUtil().addData("setting left power", leftPower);
 
             this.leftMotor.setPower (leftPower);
         }
