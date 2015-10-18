@@ -3,6 +3,7 @@ package org.aaas.stem.first.ftc.tasksAuto;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.aaas.stem.first.ftc.opmodes.AAASOpMode;
+import org.aaas.stem.first.ftc.utils.Direction;
 
 
 /**
@@ -19,13 +20,6 @@ public class EncoderDriveTask {
     private double targetEncoderValue;
 
 
-    public static enum Direction {
-        FORWARD,
-        BACKWARD,
-        LEFT,
-        RIGHT
-    }
-
     private Direction currentDirection;
 
     public EncoderDriveTask(AAASOpMode opMode,
@@ -40,22 +34,22 @@ public class EncoderDriveTask {
     }
 
 
-    public void drive(String name , double power,double targetEncoderValue, EncoderDriveTask.Direction driveDirection) throws InterruptedException {
+    public void drive(String name, double power, double targetEncoderValue, Direction driveDirection) throws InterruptedException {
 
-        EncoderMotorTask.Direction motorDirection = EncoderMotorTask.Direction.FORWARD;
-        if ( driveDirection == Direction.BACKWARD ||
-                driveDirection == Direction.LEFT  ) {
-            motorDirection = EncoderMotorTask.Direction.BACKWARD;
+        Direction motorDirection = Direction.MOTOR_FORWARD;
+        if (driveDirection == Direction.DRIVE_BACKWARD ||
+                driveDirection == Direction.DRIVE_LEFT) {
+            motorDirection = Direction.MOTOR_BACKWARD;
         }
-        leftMotorTask.startMotor(name + " left motor" , power , targetEncoderValue , motorDirection);
+        leftMotorTask.startMotor(name + ": A - Left Motor", power, targetEncoderValue, motorDirection);
 
 
-        motorDirection = EncoderMotorTask.Direction.FORWARD;
-        if ( driveDirection == Direction.BACKWARD ||
-                driveDirection == Direction.RIGHT  ) {
-            motorDirection = EncoderMotorTask.Direction.BACKWARD;
+        motorDirection = Direction.MOTOR_FORWARD;
+        if (driveDirection == Direction.DRIVE_BACKWARD ||
+                driveDirection == Direction.DRIVE_RIGHT) {
+            motorDirection = Direction.MOTOR_BACKWARD;
         }
-        rightMotorTask.startMotor(name + " right motor" ,power , targetEncoderValue , motorDirection);
+        rightMotorTask.startMotor(name + ": A - Right Motor", power, targetEncoderValue, motorDirection);
 
     }
 

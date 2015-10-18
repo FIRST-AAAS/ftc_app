@@ -29,23 +29,38 @@ public class DemoBotTeleOp extends AAASOpMode {
   @Override
   public void runOpMode() throws InterruptedException {
 
-    this.onInit();
+    try {
+      onInit();
+    }
+    catch (Throwable e ) {
+      super.handleOpmodeException(e);
+    }
 
     waitForStart();
     getTelemetryUtil().reset();
 
-
     while (opModeIsActive()) {
 
-      tankDrive.update(gamepad1);
-      servoDrive.update(gamepad2);
-
-      getTelemetryUtil().sendTelemetry();
+      try {
+        runActiveOpMode();
+      }
+      catch (Throwable e ) {
+        super.handleOpmodeException(e);
+      }
 
       waitOneFullHardwareCycle();
     }
   }
 
 
+  @Override
+  protected void runActiveOpMode()  throws InterruptedException {
+
+    tankDrive.update(gamepad1);
+    servoDrive.update(gamepad2);
+
+    getTelemetryUtil().sendTelemetry();
+
+  }
 
 }

@@ -33,6 +33,8 @@ public class TelemetryUtil  {
         Date d = new Date();
         startTime = d.getTime();
         teleMap = new HashMap<String, TelemetryModel>();
+        //TODO: wonky when cleared
+        //telemetry.clearData();
 
        // models = new ArrayList<TelemetryModel>();
     }
@@ -119,11 +121,14 @@ public class TelemetryUtil  {
         public int compareTo(Object another) {
             TelemetryModel anotherModel = (TelemetryModel)another;
             //sort descending
-            long val = anotherModel.getMillsecondsElapsed()- getMillsecondsElapsed();
-            if (val != 0 ){
+            int val = (int) (anotherModel.getMillsecondsElapsed()- getMillsecondsElapsed());
+
+           return val;
+          /*  if (val != 0 ){
                 return val < 1 ? -1 : 1;
             }
             return getKey().compareTo(anotherModel.getKey());
+            */
         }
     }
 }

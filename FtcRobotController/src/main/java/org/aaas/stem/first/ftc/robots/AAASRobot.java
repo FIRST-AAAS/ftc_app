@@ -6,6 +6,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.aaas.stem.first.ftc.utils.TelemetryUtil;
 
+import java.io.StringWriter;
+import java.io.PrintWriter;
+
+
 
 /**
  *
@@ -32,15 +36,28 @@ public abstract class AAASRobot {
             HardwareMap.DeviceMapping<HardwareDevice> deviceMapping  =  (HardwareMap.DeviceMapping<HardwareDevice>) o;
             hardwareDevice = (HardwareDevice)deviceMapping.get(name);
         }
-        catch (Exception e)
+        catch (Throwable e)
         {
             getTelemetryUtil().addData("Exception", e.getClass().getSimpleName());
             getTelemetryUtil().addData("Message", e.getLocalizedMessage());
             DbgLog.msg(e.getLocalizedMessage());
+            DbgLog.msg(stackTraceAsTring(e));
+
+
 
         }
 
         return hardwareDevice;
+    }
+
+
+    private String stackTraceAsTring(Throwable e) {
+
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        e.printStackTrace(pw);
+        return sw.toString();
+
     }
 
 

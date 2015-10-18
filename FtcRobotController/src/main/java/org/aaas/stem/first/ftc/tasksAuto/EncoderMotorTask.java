@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import org.aaas.stem.first.ftc.opmodes.AAASOpMode;
+import org.aaas.stem.first.ftc.utils.Direction;
 
 
 /**
@@ -21,10 +22,7 @@ public class EncoderMotorTask {
 
     private boolean running = false;
 
-    public static enum Direction {
-        FORWARD,
-        BACKWARD
-    }
+
     public EncoderMotorTask(AAASOpMode opMode, DcMotor motor ) {
 
         this.opMode = opMode;
@@ -36,24 +34,24 @@ public class EncoderMotorTask {
     public void startMotor( String name,
                             double power,
                             double targetEncoderValue,
-                            EncoderMotorTask.Direction direction) throws InterruptedException {
+                            Direction direction) throws InterruptedException {
 
         running = true;
         this.name = name;
         this.targetEncoderValue = targetEncoderValue;
 
-        double powerWithDirection = (direction == Direction.FORWARD) ? power : -power;
+        double powerWithDirection = (direction == Direction.MOTOR_FORWARD) ? power : -power;
 
-        resetEncoder();
-        waitForEncoderToReset();
+        opMode.getTelemetryUtil().addData(name + ": A - Starting motor ", powerWithDirection);
 
         motor.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        opMode.waitForNextHardwareCycle();
 
         if (motor != null) {
             motor.setPower(powerWithDirection);
         }
 
-        opMode.getTelemetryUtil().addData("starting motor " + name, powerWithDirection );
+
 
     }
 
@@ -64,7 +62,7 @@ public class EncoderMotorTask {
         if (motor != null)
         {
             int position = Math.abs (motor.getCurrentPosition ());
-            opMode.getTelemetryUtil().addData(name + "current position", position);
+            opMode.getTelemetryUtil().addData(name + ": B - Current position", position);
 
             //
             // Has the encoder reached the specified values?
@@ -79,7 +77,7 @@ public class EncoderMotorTask {
                 // Set the status to a positive indication.
                 //
                 reached = true;
-                opMode.getTelemetryUtil().addData("Target Reached " + name , position);
+                opMode.getTelemetryUtil().addData(name + ": C - Target Reached "  , position);
             }
         }
 
@@ -89,8 +87,12 @@ public class EncoderMotorTask {
 
 
     public void stop()  throws InterruptedException {
+        opMode.getTelemetryUtil().addData(name + ": D - stoping motor "  , "stop");
         running = false;
-        this.motor.setPower(0.0f);
+        motor.setPower(0);
+
+        resetEncoder();
+        waitForEncoderToReset();
 
     }
 
